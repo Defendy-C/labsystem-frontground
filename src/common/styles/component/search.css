@@ -1,0 +1,84 @@
+.search {
+    width: 300px;
+    height: 120px;
+    padding: 10px 0;
+}
+
+.search_input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid rgba(53, 109, 165, 0.8);
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.search_input input {
+    display: block;
+    float: left;
+    width: 178px;
+    height: 30px;
+    padding: 0 15px;
+    color: #333;
+    border: none;
+    font-size: 10px;
+}
+
+.search_input button {
+    float: right;
+    width: 40px;
+    height: 100%;
+    border: none;
+    background-color: rgba(53, 109, 165, 0.8);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.search_field {
+    display: block;
+    width: 80px;
+    height: 28px;
+    margin-left: 180px;
+    margin-top: -29px;
+    color: #888;
+    text-align: right;
+    font-size: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.search_field li, .search_field span {
+    height: 30px;
+    padding-right: 25px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.search_field li:hover {
+    background-color: #cb6546;
+    color: #fff;
+}
+
+/*.admin_time_selector {*/
+/*    width: 400px;*/
+/*    height: 25px;*/
+/*    margin: 15px 0;*/
+/*    text-align: right;*/
+/*}*/
+
+/*.admin_time_selector input {*/
+/*    width: 120px;*/
+/*    height: 25px;*/
+/*    border: 2px solid #92969c;*/
+/*    border-radius: 10px;*/
+/*    color: #92969c;*/
+/*    font-size: 10px;*/
+/*}*/
+
+/*.admin_time_selector span {*/
+/*    display: inline-block;*/
+/*    height: 50px;*/
+/*    margin: 0 5px;*/
+/*    font-size: 15px;*/
+/*    color: #333;*/
+/*}*/

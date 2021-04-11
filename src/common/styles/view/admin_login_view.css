@@ -1,0 +1,31 @@
+.admin_login_view {
+    position: relative;
+    top: 80px;
+    left: 50%;
+    width: 600px;
+    height: 500px;
+    padding: 50px 0;
+    background-color: #fff;
+    transform: translate(-50%, 0);
+    box-shadow: 0 0 15px #888;
+    border-radius: 10%;
+}
+
+.admin_login_view h1 {
+    text-align: center;
+    color: #11236a;
+}
+
+.for_login {
+    position: absolute;
+    left: 50%;
+    margin: 50px auto;
+    transform: translate(-50%, 0);
+}
+
+.for_verify {
+    position: absolute;
+    width: 100%;
+    height: 220px;
+    margin: 0 calc(50% - 160px);
+}

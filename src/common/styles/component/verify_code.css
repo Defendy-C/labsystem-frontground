@@ -1,0 +1,87 @@
+.verify_view {
+    position: absolute;
+    left: 50%;
+    width: 320px;
+    height: 220px;
+    transform: translate(-50%, 0);
+    overflow: hidden;
+}
+
+.verify_view_banner {
+    width: 100%;
+    height: 40px;
+    background-color: #41932e;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 15px;
+}
+
+.verify_view_main {
+    position: absolute;
+    width: 100%;
+    height: 180px;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.verify_view_main img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.verify_view_mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 3;
+}
+
+.verify_view_puzzle {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: 180px;
+    z-index: 5;
+}
+
+.verify_view_puzzle img {
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+}
+
+.verify_view_result {
+    position: absolute;
+    bottom: -40px;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    line-height: 40px;
+    z-index: 7;
+}
+
+.success {
+    transform: translate(0, -100%);
+    transition: transform 0.5s;
+    background-color: #41932e;
+}
+
+.fail {
+    transform: translate(0, -100%);
+    transition: transform 0.5s;
+    background-color: #9c1e1e;
+}
+
+.show {
+    transition: top 0.5s;
+    top: 200px;
+}
+
+.hide {
+    top: -220px;
+}

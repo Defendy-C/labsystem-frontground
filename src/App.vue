@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <error ref="err"></error>
+  <loading ref="loading"></loading>
+  <router-view />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Error from "@/components/error";
+import Loading from "@/components/loading";
 export default {
+  AuthStatus: true,
+  components: {Loading, Error},
   name: 'App',
-  components: {
-    HelloWorld
+  methods: {
+    err: function (err) {
+      this.$refs["err"].show(err);
+    },
+    loading: function () {
+      this.$refs["loading"].show();
+    },
+    loaded: function () {
+      this.$refs["loading"].close();
+    }
+  },
+  watch: {
+    '$store.state.ErrSensor': function () {
+      this.err(this.$store.state.errMsg);
+    }
   }
 }
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
