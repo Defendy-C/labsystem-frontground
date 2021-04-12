@@ -112,6 +112,10 @@ nav ul li a:hover {
     background-color: #ddd;
 }
 
+#head_btn_selected {
+    background-color: #ddd;
+}
+
 .admin_main_head div {
     float: right;
     height: 100%;

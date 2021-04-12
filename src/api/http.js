@@ -80,3 +80,19 @@ export async function adminList(createdBy, page, pageSize) {
         page_size: pageSize,
     })
 }
+
+export async function adminCreate(name, password, powers) {
+    return await post(AdminApiMap.get("createAdmin"), {
+        name: name,
+        password: password,
+        power: powers,
+    })
+}
+
+export async function adminUpdate(name, old_password, new_password) {
+    return await post(AdminApiMap.get("update"), {
+        name,
+        new_password,
+        old_password,
+    })
+}

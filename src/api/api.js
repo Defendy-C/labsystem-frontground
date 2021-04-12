@@ -29,3 +29,5 @@ export let AdminApiMap = new Map();
 AdminApiMap.set("login", "/api/admin/login");
 AdminApiMap.set("info", "/api/admin/info");
 AdminApiMap.set("list", "/api/admin/list")
+AdminApiMap.set("createAdmin", "/api/admin/create")
+AdminApiMap.set("update", "/api/admin/update")

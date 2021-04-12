@@ -1,4 +1,15 @@
 <template>
+  <div>
+    <pop ref="pop">
+      <template v-slot:main>
+        <power ref="power-view">
+          <template v-slot:checkbox="prop">
+            <input @click="updatePower" type="checkbox" :id="index" :checked="!(prop.own)" disabled>
+          </template>
+        </power>
+      </template>
+    </pop>
+  </div>
   <div class="admin_manager_view">
     <div class="admin_opt">
       <div class="admin_search">
@@ -22,13 +33,18 @@ import page from "@/components/page";
 import tab from "@/components/tab";
 import { adminList } from "@/api/http";
 import {dateFormat} from "@/common/util";
+import pop from "@/components/pop";
+import power from "@/components/power";
+
 export default {
   name: "adminList",
   components: {
     MyTable,
     search,
     page,
-    tab
+    tab,
+    pop,
+    power
   },
   data: function () {
     return {
@@ -81,7 +97,8 @@ export default {
       this.$root.err(err_msg);
     },
     showPower: function (power) {
-      console.log(power);
+      this.$refs["power-view"].changed(power);
+      this.$refs["pop"].show("权限查看");
     },
     packList: function (res) {
       if (!res) {
@@ -110,7 +127,7 @@ export default {
           this.fillOperation = this.operation;
           this.packList(await this.getList(this.$store.state.adminName));
       }
-    }
+    },
   }
 }
 </script>

@@ -1,15 +1,17 @@
 <template>
   <error ref="err"></error>
   <loading ref="loading"></loading>
+  <Confirm ref="confirm"></Confirm>
   <router-view />
 </template>
 
 <script>
 import Error from "@/components/error";
 import Loading from "@/components/loading";
+import Confirm from "@/components/confirm";
 export default {
   AuthStatus: true,
-  components: {Loading, Error},
+  components: {Confirm, Loading, Error},
   name: 'App',
   methods: {
     err: function (err) {
@@ -20,6 +22,9 @@ export default {
     },
     loaded: function () {
       this.$refs["loading"].close();
+    },
+    confirm(tip, ok, cancel) {
+      this.$refs["confirm"].show(tip, ok, cancel);
     }
   },
   watch: {

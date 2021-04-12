@@ -1,4 +1,9 @@
 <template>
+  <Pop ref="pop" @ok="updateAdmin" @close="initAdminUpdate">
+    <template v-slot:main>
+      <AdminUpdate ref="adminUpdate"></AdminUpdate>
+    </template>
+  </Pop>
   <nav>
     <div class="admin_nav_greeting">
       <i class="fa fa-user-circle-o"></i>
@@ -19,7 +24,10 @@
   <div class="admin_main_aside">
     <div class="admin_main_head">
       <div class="admin_login_out">
-        <button class="fa fa-sign-out"></button>
+        <button @click="loginOut" class="fa fa-sign-out"></button>
+      </div>
+      <div class="admin_main_option">
+       <button class="fa fa-gear" @click="showAdminUpdate"></button>
       </div>
       <div class="admin_main_timer">
         <span ref="date">{{timer}}</span>
@@ -33,8 +41,20 @@
 </template>
 
 <script>
-import { dateUpdatePerSecond, strToInt } from "@/common/util";
-import {adminInfo} from "@/api/http";
+import {
+  confirm_loginout, confirm_update_admin,
+  err_empty,
+  err_pwd_new_old_check,
+  dateUpdatePerSecond,
+  strToInt, rsaEncrypt,
+  clearToken,
+  checkNickName,
+  checkPassword,
+  err_nickname_format, err_password_format, err_pwd_check, tip_update
+} from "@/common/util";
+import { adminUpdate} from "@/api/http";
+import Pop from "@/components/pop";
+import AdminUpdate from "@/components/adminUpdate";
 
 const dateShow = "admin_main_timer_show";
 const dateHidden = "admin_main_timer_hidden";
@@ -50,6 +70,10 @@ const secondTitleHeight = 40;
 
 export default {
   name: "MainAdmin",
+  components: {
+    Pop,
+    AdminUpdate,
+  },
   setup() {
     let {timer, start} = dateUpdatePerSecond();
      start();
@@ -70,7 +94,7 @@ export default {
               link: "/admin/main/list",
             },
             {
-              name: "创建管理员",
+              name: "创建管理员/用户",
               link: "/admin/main/create"
             }
           ]
@@ -80,10 +104,8 @@ export default {
     }
   },
   async created() {
-    const resp = await adminInfo();
-    const res = resp.HandleResp(this.startErrorTip);
+    const res = await this.$store.dispatch("getAdmin");
     this.username = res.name;
-    this.$store.commit("setAdminName", res.name);
     await this.$router.push("/admin/main/list");
     this.$refs["nav_list"].querySelector(".admin_main_nav_list").querySelector("li").id = idCurView;
     this.$refs["nav_list"].querySelector(".admin_main_nav_title").id = idCurTitle;
@@ -133,6 +155,49 @@ export default {
       ico.classList.remove(downIco);
       ico.classList.add(upIco);
       e.currentTarget.classList.add(classCurSelected);
+    },
+    loginOut: function () {
+      this.$root.confirm(confirm_loginout, ()=> {
+        clearToken();
+        location.reload();
+      }, () => {});
+    },
+    showAdminUpdate: function () {
+      this.$refs["pop"].show("管理员信息设置");
+    },
+    updateAdmin: function () {
+      const values = this.$refs["adminUpdate"].getValue();
+      const adminName = values[0], oldPwd = values[1], newPwd = values[2], checkPwd = values[3];
+      if (!adminName||adminName === "" || !oldPwd || oldPwd === "" || !newPwd || newPwd === "" || !checkPwd || checkPwd === "" ) {
+        this.startErrorTip(err_empty);
+        return;
+      }
+      if (!checkNickName(adminName)) {
+        this.startErrorTip(err_nickname_format);
+        return;
+      }
+      if (!checkPassword(newPwd) || !checkPassword(oldPwd) ||!checkPassword(checkPwd)) {
+        this.startErrorTip(err_password_format);
+        return;
+      }
+      if (oldPwd === newPwd) {
+        this.startErrorTip(err_pwd_new_old_check);
+        return;
+      }
+      if (newPwd !== checkPwd) {
+        this.startErrorTip(err_pwd_check);
+        return;
+      }
+      this.$root.confirm(confirm_update_admin, async () => {
+        let resp = await adminUpdate(adminName, rsaEncrypt(oldPwd), rsaEncrypt(newPwd));
+        let res = resp.HandleResp(this.startErrorTip);
+        if (res) {
+          this.startErrorTip(tip_update);
+        }
+      });
+    },
+    initAdminUpdate: function () {
+      this.$refs["adminUpdate"].initAdminName(this.$store.state.adminName);
     }
   },
 }

@@ -12,7 +12,7 @@ img {
 
 body {
     margin: 0;
-    background-color: #ebebf1;
+    background-color: #fff;
 }
 
 ul {
@@ -36,4 +36,12 @@ button {
 
 select, input {
     outline: none;
+}
+
+.confirm_btn {
+    background-color: #6075c7;
+}
+
+.confirm_btn:hover {
+    background-color: #3b58cd;
 }
